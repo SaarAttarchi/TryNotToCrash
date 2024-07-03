@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/grey"
+    android:padding="@dimen/default_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OpeningScreenActivity">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="250dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="72sp"
+        android:textStyle="bold"
+        tools:text="gameName" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="300dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        tools:text="options" />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="@dimen/default_margin"
+        android:layout_marginBottom="230dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sensor_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="move your phone" />
+
+        <View
+            android:layout_width="@dimen/default_margin"
+            android:layout_height="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttons_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="play with buttons" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</RelativeLayout>
