@@ -1,6 +1,9 @@
 package com.example.exe1;
 
 import android.content.Context;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
@@ -20,8 +23,11 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int NUM_OF_LANES = 3;
+    private static final int NUM_OF_LANES = 5;
     private static final int NUM_OF_ROWS = 6;
+    private static final long SECOND = 1000L;
+    public final static String  TYPE_OF_MOVE = "type";
+    private int typeOfMove;
 
     private ExtendedFloatingActionButton button_Left;
     private ExtendedFloatingActionButton button_Right;
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView[] main_car;
     private AppCompatImageView[][] car;
     private AppCompatImageView[] main_IMG_hearts;
+    private MaterialTextView main_LBL_score;
 
 
     private LogicManager logic;
@@ -45,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            handler.postDelayed(this, 1000L);
-            logic.updateTime(startTime);// update the time every 1 second
+            handler.postDelayed(this, SECOND);
+            logic.updateTime(startTime, SECOND);// update the time every 1 second
             updateGame();// update the visuals according to the changes
         }
     };
@@ -59,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findViews();
-        initViews();
         logic = new LogicManager(NUM_OF_LANES, NUM_OF_ROWS, main_IMG_hearts.length);
+        initViews();
+
 
         
     }
@@ -69,20 +77,41 @@ public class MainActivity extends AppCompatActivity {
         button_Left = findViewById(R.id.button_Left);
         button_Right = findViewById(R.id.button_Right);
         main_IMG_hearts = new AppCompatImageView[]{ findViewById(R.id.main_IMG_heart1), findViewById(R.id.main_IMG_heart2), findViewById(R.id.main_IMG_heart3)};
-        main_car = new AppCompatImageView[]{ findViewById(R.id.main_car0), findViewById(R.id.main_car1), findViewById(R.id.main_car2)};
-        car = new AppCompatImageView[][]{ {findViewById(R.id.car0), findViewById(R.id.car1), findViewById(R.id.car2)},
-                                            {findViewById(R.id.car3), findViewById(R.id.car4), findViewById(R.id.car5)},
-                                            {findViewById(R.id.car6), findViewById(R.id.car7), findViewById(R.id.car8)},
-                                            {findViewById(R.id.car9), findViewById(R.id.car10), findViewById(R.id.car11)},
-                                            {findViewById(R.id.car12), findViewById(R.id.car13), findViewById(R.id.car14)},
-                                            {findViewById(R.id.car15), findViewById(R.id.car16), findViewById(R.id.car17)}
+        main_car = new AppCompatImageView[]{ findViewById(R.id.main_car0), findViewById(R.id.main_car1), findViewById(R.id.main_car2), findViewById(R.id.main_car3), findViewById(R.id.main_car4)};
+        car = new AppCompatImageView[][]{ {findViewById(R.id.car0_0), findViewById(R.id.car0_1), findViewById(R.id.car0_2), findViewById(R.id.car0_3), findViewById(R.id.car0_4)},
+                {findViewById(R.id.car1_0), findViewById(R.id.car1_1), findViewById(R.id.car1_2), findViewById(R.id.car1_3), findViewById(R.id.car1_4)},
+                {findViewById(R.id.car2_0), findViewById(R.id.car2_1), findViewById(R.id.car2_2), findViewById(R.id.car2_3), findViewById(R.id.car2_4)},
+                {findViewById(R.id.car3_0), findViewById(R.id.car3_1), findViewById(R.id.car3_2), findViewById(R.id.car3_3), findViewById(R.id.car3_4)},
+                {findViewById(R.id.car4_0), findViewById(R.id.car4_1), findViewById(R.id.car4_2), findViewById(R.id.car4_3), findViewById(R.id.car4_4)},
+                {findViewById(R.id.car5_0), findViewById(R.id.car5_1), findViewById(R.id.car5_2), findViewById(R.id.car5_3), findViewById(R.id.car5_4)}
         };
+        main_LBL_score = findViewById(R.id.main_LBL_score);
 
 
     }
 
     private void initViews() {
+        typeOfMove = getIntent().getIntExtra(TYPE_OF_MOVE, 0);
 
+        if(typeOfMove == 1){
+            Log.d("moveeeeeeeeeeeeeeeeeeeee", String.valueOf(typeOfMove));
+            buttonMove();
+        }
+        if(typeOfMove == 2) {
+            Log.d("moveeeeeeeeeeeeeeeeeeeee", String.valueOf(typeOfMove));
+            logic.sensorMove(this);
+            new Update(){
+                @Override
+                public void moveBySensor() {
+                    updateGame();
+                    Log.d("moveeeeeeeeeeeeeeeeeeeee", "car moved");
+                }
+            };
+        }
+
+    }
+
+    private void buttonMove() {
         button_Left.setOnClickListener(new View.OnClickListener() {// everytime we press the left button
             @Override
             public void onClick(View v) {
@@ -102,16 +131,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
+
         startTimer();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
         stopTimer();
+
     }
 
     private void startTimer() {// if the timer is off and the game hasn't ended turn the timer on, set the time of start and run
@@ -120,14 +155,17 @@ public class MainActivity extends AppCompatActivity {
                 startTime = System.currentTimeMillis();
                 timerOn = true;
                 handler.postDelayed(runnable, 0);
+                if(typeOfMove == 2)
+                    logic.startSensor();
             }
         }
 
 
     private void stopTimer() {// stops the timer at the end
         timerOn = false;
-        Log.d("stopTimer", "stopTimer: Timer Stopped");
         handler.removeCallbacks(runnable);
+        if(typeOfMove == 2)
+            logic.stopSensor();
     }
 
 
@@ -156,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 toastMessage();
                 main_IMG_hearts[logic.getNumOfCrashes() - 1].setVisibility(View.INVISIBLE);
             }
+            main_LBL_score.setText(String.valueOf(logic.getScore()));
             gameOver();
         }
     }
@@ -171,6 +210,11 @@ public class MainActivity extends AppCompatActivity {
     private void gameOver() {// if the terms for ending a game happened then stop the timer
         if(logic.isGameOver()){
             stopTimer();
+            Intent intent = new Intent(this, GameOverActivity.class);
+            intent.putExtra(GameOverActivity.SCORE, logic.getScore());
+            intent.putExtra(GameOverActivity.STATUS, "GAME OVER");
+            startActivity(intent);
+            finish();
         }
     }
 

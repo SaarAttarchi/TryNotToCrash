@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:padding="@dimen/default_margin"
-    android:layout_marginTop="@dimen/default_margin"
+    android:background="@drawable/road"
+    android:padding="5dp"
+    android:layout_marginTop="32dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -31,6 +32,19 @@
         android:layout_marginHorizontal="@dimen/default_margin"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="32dp"/>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/main_LBL_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        tools:text="000"
+/>
 
 
 
@@ -67,6 +81,20 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/racing_car"
             />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_car3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/racing_car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_car4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/racing_car"
+            />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -93,7 +121,7 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car0"
+            android:id="@+id/car0_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -101,14 +129,29 @@
             />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car1"
+            android:id="@+id/car0_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/car"
             />
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car2"
+            android:id="@+id/car0_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car0_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car0_4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -129,7 +172,7 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car3"
+            android:id="@+id/car1_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -137,14 +180,28 @@
             />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car4"
+            android:id="@+id/car1_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/car"
             />
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car5"
+            android:id="@+id/car1_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car1_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car1_4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -164,7 +221,7 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car6"
+            android:id="@+id/car2_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -172,14 +229,28 @@
             />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car7"
+            android:id="@+id/car2_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/car"
             />
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car8"
+            android:id="@+id/car2_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car2_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car2_4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -199,7 +270,7 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car9"
+            android:id="@+id/car3_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -207,14 +278,28 @@
             />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car10"
+            android:id="@+id/car3_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/car"
             />
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car11"
+            android:id="@+id/car3_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car3_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car3_4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -234,7 +319,7 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car12"
+            android:id="@+id/car4_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -242,14 +327,28 @@
             />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car13"
+            android:id="@+id/car4_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/car"
             />
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car14"
+            android:id="@+id/car4_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car4_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car4_4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -269,7 +368,7 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car15"
+            android:id="@+id/car5_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -277,14 +376,28 @@
             />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car16"
+            android:id="@+id/car5_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/car"
             />
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/car17"
+            android:id="@+id/car5_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car5_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/car"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/car5_4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -293,6 +406,7 @@
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 
 
@@ -304,7 +418,7 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="@dimen/default_margin">
 
     <androidx.appcompat.widget.AppCompatImageView

@@ -1,5 +1,10 @@
 package com.example.exe1;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.util.Log;
 
 import java.util.Random;
@@ -10,9 +15,18 @@ public class LogicManager {
     private final int MAX_CRASHES;
     private final int NUM_OF_LANES;
     private final int NUM_OF_ROWS;
+
+    private Update update;
+
+    private SensorManager sensorManager;
+    private Sensor sensor;
+    private SensorEventListener sensorEventListener;
+    private long timeDif = 0l;
+    private int movementRangeTime = 200;
     public int currentLane = 1; // sets where the main car will be at the start
     private int timePlayed;
     private int numOfCrashes = 0;
+    private int score = 0;
 
     public boolean[] mainCarArray;
     public boolean[][] carsMatrix;
@@ -47,11 +61,12 @@ public class LogicManager {
     }
 
 
-    public void updateTime(long startTime) {// set the current time and gives us the time the game is running
-        long currentTime = System.currentTimeMillis();
+    public void updateTime(long startTime, long second) {// set the current time and gives us the time the game is running
+        long currentTime = getCurrentTime();
         timePlayed = (int)((currentTime - startTime) / 1000); // we divide by 1000 to see the time is seconds
         Log.d("Timer", String.valueOf(timePlayed));
         updateLocation();
+        score += 10;
     }
 
     private void updateLocation() {
@@ -71,7 +86,7 @@ public class LogicManager {
         }
         // every to seconds we pick a random lane and set a car there
         if ((timePlayed % 2) == 0) {
-            int laneToSpawn = new Random().nextInt(3);
+            int laneToSpawn = new Random().nextInt(NUM_OF_LANES);
             carsMatrix[0][laneToSpawn] = true;
 
         }
@@ -91,11 +106,60 @@ public class LogicManager {
     public int getNumOfCrashes() {
         return numOfCrashes;
     }
+    public int getScore(){ return score;}
 
 
     public boolean isGameOver(){// if the number of crashes is the same as the max number of crashes then it will return true for the game is ending
         return getNumOfCrashes() == MAX_CRASHES;
     }
+
+    public long getCurrentTime(){
+        return System.currentTimeMillis();
+    }
+    public void sensorMove(Context context) {
+
+        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        //this.moveCallback = moveCallback;
+        sensorListener();
+
+    }
+
+
+    private void sensorListener(){
+        sensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float x = event.values[0];
+                checkMovement(x);
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                // pass
+            }
+        };
+    }
+
+    private void checkMovement(float x){
+        if(System.currentTimeMillis() - timeDif > 500 ){
+            timeDif = getCurrentTime();
+            if (x < 5.0) {
+                moveRight();
+                Log.d("moveeeeeeeeeeeeeeeeeeeee", "right");
+                if (update != null)
+                    update.moveBySensor();
+            }
+
+            if (x < -5.0) {
+                moveRight();
+                Log.d("moveeeeeeeeeeeeeeeeeeeee", "left");
+                if (update != null)
+                    update.moveBySensor();
+            }
+        }
+    }
+
 
 
     public void moveLeft() {
@@ -108,7 +172,7 @@ public class LogicManager {
     }
 
     public void moveRight() {// do it only if we are not on the right lane
-        if(currentLane < 2) {
+        if(currentLane < 4) {
             // set the current position to be false, update the number of the current lane and set the new place to be true;
             mainCarArray[currentLane] = false;
             currentLane++;
@@ -116,5 +180,20 @@ public class LogicManager {
         }
     }
 
+    public void startSensor() {
+        Log.d("moveeeeeeeeeeeeeeeeeeeee", "starttttttttt");
+        sensorManager.registerListener(
+                sensorEventListener,
+                sensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+        );
 
+    }
+
+    public void stopSensor() {
+        sensorManager.unregisterListener(
+                sensorEventListener,
+                sensor
+        );
+    }
 }
