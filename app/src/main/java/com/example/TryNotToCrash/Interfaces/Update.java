@@ -1,4 +1,4 @@
-package com.example.exe1;
+package com.example.TryNotToCrash.Interfaces;
 
 public interface Update {
     void moveBySensor();

@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.exe1"
+    namespace = "com.example.TryNotToCrash"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.exe1"
+        applicationId = "com.example.TryNotToCrash"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -34,7 +34,14 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation (libs.gson)
+
+
+
 }

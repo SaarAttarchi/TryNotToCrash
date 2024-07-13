@@ -1,4 +1,4 @@
-package com.example.exe1;
+package com.example.TryNotToCrash;
 
 import android.content.Context;
 

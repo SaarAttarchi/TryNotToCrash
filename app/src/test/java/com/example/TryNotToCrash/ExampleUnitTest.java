@@ -1,4 +1,4 @@
-package com.example.exe1;
+package com.example.TryNotToCrash;
 
 import org.junit.Test;
 

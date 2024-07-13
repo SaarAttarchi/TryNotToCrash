@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "exe1"
+rootProject.name = "TryNotToCrash"
 include(":app")
  

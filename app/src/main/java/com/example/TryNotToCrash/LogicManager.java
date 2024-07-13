@@ -1,4 +1,4 @@
-package com.example.exe1;
+package com.example.TryNotToCrash;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -6,6 +6,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
+
+import com.example.TryNotToCrash.Interfaces.Update;
 
 import java.util.Random;
 
@@ -96,6 +98,7 @@ public class LogicManager {
     public boolean crash() {
             if(mainCarArray[currentLane] && carsMatrix[NUM_OF_ROWS - 1][currentLane]){ // if there is a car shown un the last row in the current lane the main car is then there is a crash
                 numOfCrashes++;
+                Log.d("crash", "crash");
                 return true;
             }
         return false;
@@ -116,20 +119,23 @@ public class LogicManager {
     public long getCurrentTime(){
         return System.currentTimeMillis();
     }
-    public void sensorMove(Context context) {
+
+
+    //get the sensors
+    public void sensorMove(Context context, Update update) {
 
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        //this.moveCallback = moveCallback;
+        this.update = update;
         sensorListener();
 
     }
 
-
+    // create the sensor listener for only x changes
     private void sensorListener(){
         sensorEventListener = new SensorEventListener() {
             @Override
-            public void onSensorChanged(SensorEvent event) {
+            public void onSensorChanged(SensorEvent event) { // everytime the sensor is moving check it
                 float x = event.values[0];
                 checkMovement(x);
             }
@@ -142,18 +148,19 @@ public class LogicManager {
     }
 
     private void checkMovement(float x){
-        if(System.currentTimeMillis() - timeDif > 500 ){
+        if(getCurrentTime() - timeDif > 500 ){ // if the time now and the time we checked before is more than 0.5 second
             timeDif = getCurrentTime();
-            if (x < 5.0) {
+            // see if the sensor move the amount we want
+            if (x < -4.0) { // means there was a movement to the right and update the game
                 moveRight();
-                Log.d("moveeeeeeeeeeeeeeeeeeeee", "right");
+                Log.d("sensor move", "right");
                 if (update != null)
                     update.moveBySensor();
             }
 
-            if (x < -5.0) {
-                moveRight();
-                Log.d("moveeeeeeeeeeeeeeeeeeeee", "left");
+            if (x > 4.0) { // means there was a movement to the left and update the game
+                moveLeft();
+                Log.d("sensor move", "left");
                 if (update != null)
                     update.moveBySensor();
             }
@@ -180,8 +187,9 @@ public class LogicManager {
         }
     }
 
+    // starting the senor to check movements
     public void startSensor() {
-        Log.d("moveeeeeeeeeeeeeeeeeeeee", "starttttttttt");
+        Log.d("sensor", "sensor start");
         sensorManager.registerListener(
                 sensorEventListener,
                 sensor,
@@ -189,8 +197,9 @@ public class LogicManager {
         );
 
     }
-
+    // stop using the senor
     public void stopSensor() {
+        Log.d("sensor", "sensor end");
         sensorManager.unregisterListener(
                 sensorEventListener,
                 sensor

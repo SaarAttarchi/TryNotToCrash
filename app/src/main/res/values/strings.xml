@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">exe1</string>
+    <string name="app_name">TryNotToCrash</string>
     <string name="right">Right</string>
     <string name="left">Left</string>
+
 </resources>

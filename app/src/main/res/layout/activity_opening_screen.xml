@@ -36,6 +36,9 @@
         tools:text="options" />
 
 
+
+
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,6 +64,62 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="play with buttons" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="170dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="@dimen/default_margin">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/slow_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:textColor="@color/light_grey"
+            android:textSize="20sp"
+            tools:text="slow" />
+
+        <View
+            android:layout_width="@dimen/default_margin"
+            android:layout_height="0dp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/speed_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:checked="false"
+            />
+
+        <View
+            android:layout_width="@dimen/default_margin"
+            android:layout_height="0dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fast_opt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:textColor="@color/light_grey"
+            android:textSize="20sp"
+            tools:text="fast" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
